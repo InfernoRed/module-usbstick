@@ -1,0 +1,131 @@
+{
+	"info": {
+		"_postman_id": "ff0288f5-ae1f-46dd-ae20-8523b1933593",
+		"name": "Express USB",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/usb/{{deviceId}}/file?path={{relative_file_path}}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{scheme}}://{{host}}:{{port}}/usb/{{deviceId}}/file?path={{relative_file_path}}",
+					"protocol": "{{scheme}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"usb",
+						"{{deviceId}}",
+						"file"
+					],
+					"query": [
+						{
+							"key": "path",
+							"value": "{{relative_file_path}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/usb/{{deviceId}}/file?path={{relative_file_path}}",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "path",
+						"value": "{{relative_file_path}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"some\":\"test\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{scheme}}://{{host}}:{{port}}/usb/{{deviceId}}/file?path={{relative_file_path}}",
+					"protocol": "{{scheme}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"usb",
+						"{{deviceId}}",
+						"file"
+					],
+					"query": [
+						{
+							"key": "path",
+							"value": "{{relative_file_path}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/usb",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{scheme}}://{{host}}:{{port}}/usb",
+					"protocol": "{{scheme}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"usb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/usb/{{deviceId}}/directory?path={{relative_dir_path}}",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{scheme}}://{{host}}:{{port}}/usb/{{deviceId}}/directory?path={{relative_dir_path}}",
+					"protocol": "{{scheme}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"usb",
+						"{{deviceId}}",
+						"directory"
+					],
+					"query": [
+						{
+							"key": "path",
+							"value": "{{relative_dir_path}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

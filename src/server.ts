@@ -92,6 +92,15 @@ app.get('/', (_request: Request, response: Response) => {
   response.sendFile(path.join(__dirname, '..', 'index.html'))
 })
 
+let _ignored = [
+  'device', 
+  'file'
+].map(async name => {
+
+  var controller = require('./controllers/' + name);
+  await controller.setup(app);
+});
+
 export function start() {
   app.listen(port, () => {
     // eslint-disable-next-line no-console
