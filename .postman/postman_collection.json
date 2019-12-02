@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "ff0288f5-ae1f-46dd-ae20-8523b1933593",
-		"name": "Express USB",
+		"name": "ElectionGuard USB",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -120,6 +120,54 @@
 						{
 							"key": "path",
 							"value": "{{relative_dir_path}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/usb/{{deviceId}}/unmount",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{scheme}}://{{host}}:{{port}}/usb/{{deviceId}}/unmount",
+					"protocol": "{{scheme}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"usb",
+						"{{deviceId}}",
+						"unmount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/usb/{{deviceId}}/mount?label={{device_label}}",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{scheme}}://{{host}}:{{port}}/usb/{{deviceId}}/mount?label={{device_label}}",
+					"protocol": "{{scheme}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"usb",
+						"{{deviceId}}",
+						"mount"
+					],
+					"query": [
+						{
+							"key": "label",
+							"value": "{{device_label}}"
 						}
 					]
 				}

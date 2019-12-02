@@ -17,6 +17,7 @@ export interface BlockDeviceInfo {
   readonly name: string
   // eslint-disable-next-line no-null/no-null
   readonly mountpoint: string | null
+  readonly type: string
   readonly children?: BlockDeviceInfo[]
 }
 
