@@ -6,12 +6,50 @@
 	},
 	"item": [
 		{
-			"name": "/usb/{{deviceId}}/file?path={{relative_file_path}}",
+			"name": "1. Get USB Storage Devices",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "javascript"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{scheme}}://{{host}}:{{port}}/usb",
+					"protocol": "{{scheme}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"usb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. Mount the Device with the Given Label",
+			"request": {
+				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "{{scheme}}://{{host}}:{{port}}/usb/{{deviceId}}/file?path={{relative_file_path}}",
+					"raw": "{{scheme}}://{{host}}:{{port}}/usb/{{deviceId}}/mount?label={{device_label}}",
 					"protocol": "{{scheme}}",
 					"host": [
 						"{{host}}"
@@ -20,12 +58,12 @@
 					"path": [
 						"usb",
 						"{{deviceId}}",
-						"file"
+						"mount"
 					],
 					"query": [
 						{
-							"key": "path",
-							"value": "{{relative_file_path}}"
+							"key": "label",
+							"value": "{{device_label}}"
 						}
 					]
 				}
@@ -33,7 +71,34 @@
 			"response": []
 		},
 		{
-			"name": "/usb/{{deviceId}}/file?path={{relative_file_path}}",
+			"name": "3. Create A Directory",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{scheme}}://{{host}}:{{port}}/usb/{{deviceId}}/directory?path={{relative_dir_path}}",
+					"protocol": "{{scheme}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"usb",
+						"{{deviceId}}",
+						"directory"
+					],
+					"query": [
+						{
+							"key": "path",
+							"value": "{{relative_dir_path}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. Write Json to Specified File",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -81,31 +146,12 @@
 			"response": []
 		},
 		{
-			"name": "/usb",
+			"name": "5. Get Device File From Path",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{scheme}}://{{host}}:{{port}}/usb",
-					"protocol": "{{scheme}}",
-					"host": [
-						"{{host}}"
-					],
-					"port": "{{port}}",
-					"path": [
-						"usb"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "/usb/{{deviceId}}/directory?path={{relative_dir_path}}",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"url": {
-					"raw": "{{scheme}}://{{host}}:{{port}}/usb/{{deviceId}}/directory?path={{relative_dir_path}}",
+					"raw": "{{scheme}}://{{host}}:{{port}}/usb/{{deviceId}}/file?path={{relative_file_path}}",
 					"protocol": "{{scheme}}",
 					"host": [
 						"{{host}}"
@@ -114,12 +160,12 @@
 					"path": [
 						"usb",
 						"{{deviceId}}",
-						"directory"
+						"file"
 					],
 					"query": [
 						{
 							"key": "path",
-							"value": "{{relative_dir_path}}"
+							"value": "{{relative_file_path}}"
 						}
 					]
 				}
@@ -127,7 +173,7 @@
 			"response": []
 		},
 		{
-			"name": "/usb/{{deviceId}}/unmount",
+			"name": "6. Unmount the Specified Device",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -142,33 +188,6 @@
 						"usb",
 						"{{deviceId}}",
 						"unmount"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "/usb/{{deviceId}}/mount?label={{device_label}}",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"url": {
-					"raw": "{{scheme}}://{{host}}:{{port}}/usb/{{deviceId}}/mount?label={{device_label}}",
-					"protocol": "{{scheme}}",
-					"host": [
-						"{{host}}"
-					],
-					"port": "{{port}}",
-					"path": [
-						"usb",
-						"{{deviceId}}",
-						"mount"
-					],
-					"query": [
-						{
-							"key": "label",
-							"value": "{{device_label}}"
-						}
 					]
 				}
 			},
