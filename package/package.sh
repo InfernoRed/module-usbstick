@@ -3,6 +3,7 @@
 echo "packaging application"
 
 tar --exclude=.git \
+    --exclude=.github \
     --exclude=.DS_Store \
     --exclude=.circleci \
     --exclude=.postman \
