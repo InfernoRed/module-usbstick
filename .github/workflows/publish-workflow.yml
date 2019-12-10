@@ -38,6 +38,8 @@ jobs:
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1.0.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         release_name: Milestone Release
         tag_name: v1.0.0
