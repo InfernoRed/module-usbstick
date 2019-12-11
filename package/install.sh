@@ -5,6 +5,12 @@ SERVICE_NAME='module-usb.service'
 
 echo "installing USB dependencies"
 
+command -v pmount >/dev/null 2>&1 || {
+    echo "Pmount not found. installing."
+    sudo apt-get update
+    sudo apt-get install -y pmount
+}
+
 command -v node >/dev/null 2>&1 || {
     echo "Node not found. installing."
     sudo apt-get install -y curl
