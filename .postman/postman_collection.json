@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "ff0288f5-ae1f-46dd-ae20-8523b1933593",
-		"name": "VotingWorks USB",
+		"_postman_id": "dc747a49-6990-49a3-8727-ade58f758976",
+		"name": "VotingWorks USB Stick Module",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -188,6 +188,60 @@
 						"usb",
 						"{{deviceId}}",
 						"unmount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7. Write Csv to Specified File",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "path",
+						"value": "{{relative_csv_file_path}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Length",
+						"value": "15",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"options\": {\n\t\t\"fields\": [\"field2\", \"field1\"],\n\t\t\"delimiter\": \"|\"\n\t},\n\t\"data\": [\n\t\t{\n\t\t\t\"field1\": \"testA , comma\",\n\t\t\t\"field2\": 0\n\t\t},\n\t\t{\n\t\t\t\"field1\": \"testB ; semicolon\",\n\t\t\t\"field2\": 1\n\t\t}\n\t]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{scheme}}://{{host}}:{{port}}/usb/{{deviceId}}/file?path={{relative_csv_file_path}}",
+					"protocol": "{{scheme}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"usb",
+						"{{deviceId}}",
+						"file"
+					],
+					"query": [
+						{
+							"key": "path",
+							"value": "{{relative_csv_file_path}}"
+						}
 					]
 				}
 			},
