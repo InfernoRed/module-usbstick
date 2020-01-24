@@ -246,6 +246,114 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "8. Write Results Csv",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "path",
+						"type": "text",
+						"value": "{{results_file_path}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Length",
+						"type": "text",
+						"value": "15",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"options\": {\n\t\t\"fields\": [\"contestId\", \"contestTitle\", \"selectionId\", \"selectionName\", \"party\", \"voteCount\"],\n\t\t\"delimiter\": \"|\",\n\t\t\"header\" : false,\n\t\t\"quote\": \"\"\n\t},\n\t\"data\": [\n\t\t{\n\t\t\t\"contestId\": \"sup-court\",\n\t\t\t\"contestTitle\": \"Justice of the Supreme Court\",\n\t\t\t\"selectionId\": \"kelly\",\n\t\t\t\"selectionName\": \"Daniel Kelly\",\n\t\t\t\"party\": \"\",\n\t\t\t\"voteCount\": 300\n\t\t},\n\t\t{\n\t\t\t\"contestId\": \"sup-court\",\n\t\t\t\"contestTitle\": \"Justice of the Supreme Court\",\n\t\t\t\"selectionId\": \"karofsky\",\n\t\t\t\"selectionName\": \"Jill J. Karofsky\",\n\t\t\t\"party\": \"\",\n\t\t\t\"voteCount\": 200\n\t\t},\n\t\t{\n\t\t\t\"contestId\": \"sup-court\",\n\t\t\t\"contestTitle\": \"Justice of the Supreme Court\",\n\t\t\t\"selectionId\": \"fallone\",\n\t\t\t\"selectionName\": \"Ed Fallone\",\n\t\t\t\"party\": \"\",\n\t\t\t\"voteCount\": 100\n\t\t},\n\t\t{\n\t\t\t\"contestId\": \"milton-school-board\",\n\t\t\t\"contestTitle\": \"Milton School Board\",\n\t\t\t\"selectionId\": \"hoffman\",\n\t\t\t\"selectionName\": \"Mike Hoffman\",\n\t\t\t\"party\": \"\",\n\t\t\t\"voteCount\": 300\n\t\t},\n\t\t{\n\t\t\t\"contestId\": \"milton-school-board\",\n\t\t\t\"contestTitle\": \"Milton School Board\",\n\t\t\t\"selectionId\": \"hanke\",\n\t\t\t\"selectionName\": \"Shelly Crull-Hanke\",\n\t\t\t\"party\": \"\",\n\t\t\t\"voteCount\": 75\n\t\t},\n\t\t{\n\t\t\t\"contestId\": \"milton-school-board\",\n\t\t\t\"contestTitle\": \"Milton School Board\",\n\t\t\t\"selectionId\": \"jackson\",\n\t\t\t\"selectionName\": \"Chuck Jackson\",\n\t\t\t\"party\": \"\",\n\t\t\t\"voteCount\": 75\n\t\t},\n\t\t{\n\t\t\t\"contestId\": \"milton-school-board\",\n\t\t\t\"contestTitle\": \"Milton School Board\",\n\t\t\t\"selectionId\": \"holternman\",\n\t\t\t\"selectionName\": \"David Holterman\",\n\t\t\t\"party\": \"\",\n\t\t\t\"voteCount\":150\n\t\t},\n\t\t{\n\t\t\t\"contestId\": \"milton-school-board\",\n\t\t\t\"contestTitle\": \"Milton School Board\",\n\t\t\t\"selectionId\": \"hall\",\n\t\t\t\"selectionName\": \"Karen Hall\",\n\t\t\t\"party\": \"\",\n\t\t\t\"voteCount\": 0\n\t\t}\n\t]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{scheme}}://{{host}}:{{port}}/usb/{{deviceId}}/file?path={{results_file_path}}",
+					"protocol": "{{scheme}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"usb",
+						"{{deviceId}}",
+						"file"
+					],
+					"query": [
+						{
+							"key": "path",
+							"value": "{{results_file_path}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "9. Write Trackers Csv",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "path",
+						"type": "text",
+						"value": "{{trackers_file_path}}"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Content-Length",
+						"type": "text",
+						"value": "15",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"options\": {\n\t\t\"fields\": [\"trackingId\", \"approximateCastTime\", \"location\"],\n\t\t\"delimiter\": \"|\",\n\t\t\"header\" : false,\n\t\t\"quote\": \"\"\n\t},\n\t\"data\": [\n\t\t{\n\t\t\t\"trackingId\": \"amazing-tracker-green\",\n\t\t\t\"approximateCastTime\": \"02/18/2020\",\n\t\t\t\"location\": \"Town of Fulton, Wisconsin\"\n\t\t},\n\t\t{\n\t\t\t\"trackingId\": \"amazing-tracker-red\",\n\t\t\t\"approximateCastTime\": \"02/18/2020\",\n\t\t\t\"location\": \"Town of Fulton, Wisconsin\"\n\t\t},\n\t\t{\n\t\t\t\"trackingId\": \"amazing-tracker-blue\",\n\t\t\t\"approximateCastTime\": \"02/18/2020\",\n\t\t\t\"location\": \"Town of Fulton, Wisconsin\"\n\t\t},\n\t\t{\n\t\t\t\"trackingId\": \"amazing-tracker-yellow\",\n\t\t\t\"approximateCastTime\": \"02/18/2020\",\n\t\t\t\"location\": \"Town of Fulton, Wisconsin\"\n\t\t},\n\t\t{\n\t\t\t\"trackingId\": \"amazing-tracker-purple\",\n\t\t\t\"approximateCastTime\": \"02/18/2020\",\n\t\t\t\"location\": \"Town of Fulton, Wisconsin\"\n\t\t}\n\t]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{scheme}}://{{host}}:{{port}}/usb/{{deviceId}}/file?path={{trackers_file_path}}",
+					"protocol": "{{scheme}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"usb",
+						"{{deviceId}}",
+						"file"
+					],
+					"query": [
+						{
+							"key": "path",
+							"value": "{{trackers_file_path}}"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}

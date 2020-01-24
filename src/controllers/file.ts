@@ -1,11 +1,20 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable no-null/no-null */
+/* eslint-disable import/prefer-default-export */
 import { Application, Request, Response } from 'express'
 import * as path from 'path'
 
 import { availableDrives } from './device'
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 var fs = require('fs')
 var { parse } = require('json2csv')
+
+interface Json2CsvOptions {
+  fields?: string[]
+  delimiter?: string
+  quote?: string
+  header?: boolean
+}
 
 const _writeDirectory = (
   deviceId: number,
@@ -65,13 +74,14 @@ const _writeFile = (
   })
 }
 
-const convertToCsv = (json: { options?: any, data: any[] }) => {
+const convertToCsv = (json: { options?: Json2CsvOptions; data: object[] }) => {
   try {
-    if(json.options) {
+    if (json.options) {
       return parse(json.data, json.options)
     }
     return parse(json.data)
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.error(err)
   }
 }
@@ -124,7 +134,10 @@ export async function setup(app: Application) {
         _request.query.path ||
         new Date().getTime() + '.json'
       var fileType = filePath.split('.').pop()
-      let file = fileType === 'csv' ? convertToCsv(_request.body) : JSON.stringify(_request.body, null, 2)
+      let file =
+        fileType === 'csv'
+          ? convertToCsv(_request.body)
+          : JSON.stringify(_request.body, null, 2)
       let deviceId = _request.params.deviceId
 
       const result = await _writeFile(deviceId, filePath, file)

@@ -1,18 +1,21 @@
+/* eslint-disable no-console */
+/* eslint-disable no-null/no-null */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Application, Request, Response } from 'express'
 import { exec, ExecException } from 'child_process'
 import { BlockDeviceInfo } from '../server'
-import { resolve } from 'dns'
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const drivelist = require('drivelist')
 
 export class UsbDeviceInfo {
-  id: number
-  description: string
-  device: string
-  path: string
-  mountpoints: string[]
+  public id: number
+  public description: string
+  public device: string
+  public path: string
+  public mountpoints: string[]
 
-  constructor(
+  public constructor(
     id: number,
     description: string,
     device: string,
@@ -27,11 +30,9 @@ export class UsbDeviceInfo {
   }
 }
 
-export var availableDrives: UsbDeviceInfo[] = []
+export let availableDrives: UsbDeviceInfo[] = []
 
-const _getBlockDevice = (
-  devicePath: string
-): Promise<BlockDeviceInfo[]> => {
+const _getBlockDevice = (devicePath: string): Promise<BlockDeviceInfo[]> => {
   return new Promise(resolve => {
     exec(
       `lsblk ${devicePath} -J`,
@@ -44,41 +45,41 @@ const _getBlockDevice = (
 }
 
 const _getUsbDrives = async (): Promise<UsbDeviceInfo[]> => {
-    const drives = await drivelist.list()
+  const drives = await drivelist.list()
 
-    availableDrives = []
+  availableDrives = []
 
-    drives.forEach((drive: any) => {
-      if (drive.isRemovable && drive.isUSB && !drive.isSystem) {
-        //console.log(drive)
-        let mountpoints: string[] = []
-        drive.mountpoints.forEach((mountpoint: any) =>
-          mountpoints.push(mountpoint.path)
-        )
+  drives.forEach((drive: any) => {
+    if (drive.isRemovable && drive.isUSB && !drive.isSystem) {
+      //console.log(drive)
+      let mountpoints: string[] = []
+      drive.mountpoints.forEach((mountpoint: any) =>
+        mountpoints.push(mountpoint.path)
+      )
 
-        let driveInfo = new UsbDeviceInfo(
-          availableDrives.length,
-          drive.description,
-          drive.device,
-          drive.devicePath,
-          mountpoints
-        )
-        availableDrives.push(driveInfo)
-      }
-    })
+      let driveInfo = new UsbDeviceInfo(
+        availableDrives.length,
+        drive.description,
+        drive.device,
+        drive.devicePath,
+        mountpoints
+      )
+      availableDrives.push(driveInfo)
+    }
+  })
 
-    return availableDrives
+  return availableDrives
 }
 
 const _getUsbDrive = async (
   deviceId: number
 ): Promise<UsbDeviceInfo | null> => {
-    let devices = await _getUsbDrives()
-    if (devices.length <= 0 || !devices[deviceId]) {
-      return null
-    }
-    let device = devices[deviceId]
-    return device
+  let devices = await _getUsbDrives()
+  if (devices.length <= 0 || !devices[deviceId]) {
+    return null
+  }
+  let device = devices[deviceId]
+  return device
 }
 
 const _mountUsbDrive = (
