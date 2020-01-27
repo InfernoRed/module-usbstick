@@ -93,14 +93,12 @@ app.get('/', (_request: Request, response: Response) => {
   response.sendFile(path.join(__dirname, '..', 'index.html'))
 })
 
-let _ignored = [
-  'device', 
-  'file'
-].map(async name => {
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+let _ignored = ['device', 'file'].map(async name => {
+  // eslint-disable-next-line
   var controller = require('./controllers/' + name);
-  await controller.setup(app);
-});
+  await controller.setup(app)
+})
 
 export function start() {
   app.listen(port, () => {

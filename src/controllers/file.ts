@@ -1,10 +1,20 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable no-null/no-null */
+/* eslint-disable import/prefer-default-export */
 import { Application, Request, Response } from 'express'
 import * as path from 'path'
 
 import { availableDrives } from './device'
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 var fs = require('fs')
+var { parse } = require('json2csv')
+
+interface Json2CsvOptions {
+  fields?: string[]
+  delimiter?: string
+  quote?: string
+  header?: boolean
+}
 
 const _writeDirectory = (
   deviceId: number,
@@ -64,7 +74,19 @@ const _writeFile = (
   })
 }
 
-export default async function setup(app: Application) {
+const convertToCsv = (json: { options?: Json2CsvOptions; data: object[] }) => {
+  try {
+    if (json.options) {
+      return parse(json.data, json.options)
+    }
+    return parse(json.data)
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error(err)
+  }
+}
+
+export async function setup(app: Application) {
   app.get(
     '/usb/:deviceId/file',
     async (_request: Request, response: Response) => {
@@ -107,18 +129,16 @@ export default async function setup(app: Application) {
   app.post(
     '/usb/:deviceId/file',
     async (_request: Request, response: Response) => {
-      const contentType = _request.headers['content-type']
-      let file =
-        contentType === 'application/json'
-          ? // eslint-disable-next-line no-null/no-null
-            JSON.stringify(_request.body, null, 2)
-          : (_request.body as string)
-      let deviceId = _request.params.deviceId
-
       var filePath: string =
         _request.get('path') ||
         _request.query.path ||
         new Date().getTime() + '.json'
+      var fileType = filePath.split('.').pop()
+      let file =
+        fileType === 'csv'
+          ? convertToCsv(_request.body)
+          : JSON.stringify(_request.body, null, 2)
+      let deviceId = _request.params.deviceId
 
       const result = await _writeFile(deviceId, filePath, file)
       response.json(result)
